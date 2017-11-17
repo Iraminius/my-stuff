@@ -20,6 +20,8 @@
   "homepage": "https://github.com/Iraminius/my-stuff#readme",
   "devDependencies": {
     "electron": "^1.7.9",
-    "electron-builder": "^19.45.5"
+    "electron-builder": "^19.45.5",
+    "eslint": "^4.11.0",
+    "eslint-plugin-react": "^7.4.0"
   }
 }
