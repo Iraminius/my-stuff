@@ -1,0 +1,25 @@
+{
+  "name": "my-stuff",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/electron .",
+    "build-win-portable": "./node_modules/.bin/electron-builder --config ./electron-config/win-portable.json",
+    "build-win-32": "./node_modules/.bin/electron-builder --config ./electron-config/win-32.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iraminius/my-stuff.git"
+  },
+  "author": "Iraminius",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Iraminius/my-stuff/issues"
+  },
+  "homepage": "https://github.com/Iraminius/my-stuff#readme",
+  "devDependencies": {
+    "electron": "^1.7.9",
+    "electron-builder": "^19.45.5"
+  }
+}
