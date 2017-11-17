@@ -1,0 +1,10 @@
+{
+  "files": ["./index.js", "./bundle"],
+  "directories": {
+    "output": "./builds/win-32"
+  },
+  "win": {
+    "target": "dir",
+    "asar": "true"
+  }
+}

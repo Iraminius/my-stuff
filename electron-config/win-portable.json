@@ -1,0 +1,12 @@
+{
+  "files": ["./index.js", "./bundle"],
+  "directories": {
+    "output": "./builds/win-portable"
+  },
+  "win": {
+    "target": "portable"
+  },
+  "portable": {
+    "requestExecutionLevel": "user"
+  }
+}
