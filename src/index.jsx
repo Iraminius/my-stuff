@@ -2,7 +2,8 @@ import React from "react"
 import ReactDOM from "react-dom"
 import ReactTable from "react-table"
 import PouchDB from "pouchdb"
-import Modal from "react-modal"
+import AddModal from "./components/AddModal"
+import EditModal from "./components/EditModal"
 
 import "react-table/react-table.css"
 
@@ -13,20 +14,21 @@ class App extends React.Component {
         this.db = new PouchDB("books")
 
         this.state = {
-            title: "",
-            author: "",
-            modalIsOpen: false,
+            addModalOpen: false,
+            editModalOpen: false,
+            neededForEdit: {},
             data: []
         }
 
         this.fetchData = this.fetchData.bind(this)
 
-        this.openModal = this.openModal.bind(this)
-        this.afterModalOpen = this.afterModalOpen.bind(this)
-        this.closeModal = this.closeModal.bind(this)
+        this.openAddModal = this.openAddModal.bind(this)
+        this.closeAddModal = this.closeAddModal.bind(this)
+        this.submitAddModal = this.submitAddModal.bind(this)
 
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.editBook = this.editBook.bind(this)
+        this.closeEditModal = this.closeEditModal.bind(this)
+        this.submitEditModal = this.submitEditModal.bind(this)
     }
 
     componentDidMount() {        
@@ -45,34 +47,52 @@ class App extends React.Component {
         })     
     }
 
-    openModal() {
-        this.setState({modalIsOpen: true})
-    }
-
-    afterModalOpen() {
+    openAddModal() {
         this.setState({
-            title: "",
-            author: ""
+            addModalOpen: true
         })
     }
-    
-    closeModal() {
-        this.setState({modalIsOpen: false})
-    }
 
-    handleChange(e) {
+    closeAddModal() {
         this.setState({
-            [e.target.name]: e.target.value
+            addModalOpen: false
         })
     }
 
-    handleSubmit() {
-        this.db.bulkDocs([{
-            "title": this.state.title,
-            "author": this.state.author
-        }]).then( result => {
-            this.fetchData()
+    submitAddModal(data) {
+        this.db.bulkDocs([data])
+            .then( result => {
+                this.fetchData()
+            }).catch( error => {
+                console.log(error)
+            })
+    }
+
+    editBook(row) {
+        this.setState({
+            editModalOpen: true,
+            neededForEdit: {
+                _id: row._id,
+                _rev: row._original._rev,
+                title: row.title,
+                author: row.author
+            }
         })
+    }
+
+    closeEditModal() {
+        this.setState({
+            editModalOpen: false
+        })
+    }
+
+    submitEditModal(data) {
+        this.db.bulkDocs([data])
+            .then( result => {
+                this.fetchData()
+            }).catch( error => {
+                console.log(error)
+            })
     }
 
     render() {
@@ -91,34 +111,52 @@ class App extends React.Component {
         }, {
             Header: "Opis",
             accessor: "description"
-        }] 
+        }, {
+            Header: "Akcje",
+            accessor: "actions",
+            Cell: row => (
+                <div>
+                    <button onClick={() => this.editBook(row.row)}>Edytuj</button>    
+                </div>
+            )
+        }]
         
         return (
             <div>
-                <Modal
-                    isOpen={this.state.modalIsOpen}
-                    onAfterOpen={this.afterModalOpen}
-                    onRequestClose={this.closeModal}
+                <AddModal
+                    isOpen={this.state.addModalOpen}
                     contentLabel="Dodaj książkę"
-                >
-                    <h2>Nowa książka</h2>
-                    
-                    <form onSubmit={this.handleSubmit}>
-                        <label>
-                            Tytuł:
-                            <input name="title" type="text" onChange={this.handleChange} value={this.state.title}/>
-                        </label>
-                        <label>
-                            Autor:
-                            <input name="author" type="text" onChange={this.handleChange} value={this.state.author}/>
-                        </label>
-                        <input type="submit" value="Dodaj"/>
-                    </form>
+                    onSubmit={this.submitAddModal}
+                    closeModal={this.closeAddModal}
+                    values={{
+                        toChange: [{
+                            header: "Tytuł",
+                            accessor: "title"
+                        }, {
+                            header: "Autor",
+                            accessor: "author"
+                        }]
+                    }}
+                />
 
-                    <button onClick={this.closeModal}>Anuluj</button>
-                </Modal>
+                <EditModal
+                    isOpen={this.state.editModalOpen}
+                    contentLabel="Edytuj książkę"
+                    onSubmit={this.submitEditModal}
+                    closeModal={this.closeEditModal}
+                    values={{
+                        existing: this.state.neededForEdit,
+                        toChange: [{
+                            header: "Tytuł",
+                            accessor: "title"
+                        }, {
+                            header: "Autor",
+                            accessor: "author"
+                        }]
+                    }}
+                />
 
-                <button onClick={this.openModal}>Dodaj książkę</button>
+                <button onClick={this.openAddModal}>Dodaj książkę</button>
 
                 <ReactTable
                     data={this.state.data}
@@ -132,8 +170,6 @@ class App extends React.Component {
                         return row[id] !== undefined ? String(row[id]).toUpperCase().includes(filter.value.toUpperCase()) : true
                     }}
                 />
-
-            // onclick add open modal, fill the gaps and insert to db
             </div>
         )
     }
