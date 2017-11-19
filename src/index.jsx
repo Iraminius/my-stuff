@@ -29,6 +29,8 @@ class App extends React.Component {
         this.editBook = this.editBook.bind(this)
         this.closeEditModal = this.closeEditModal.bind(this)
         this.submitEditModal = this.submitEditModal.bind(this)
+
+        this.deleteBook = this.deleteBook.bind(this)
     }
 
     componentDidMount() {        
@@ -63,7 +65,8 @@ class App extends React.Component {
         this.db.bulkDocs([data])
             .then( result => {
                 this.fetchData()
-            }).catch( error => {
+            })
+            .catch( error => {
                 console.log(error)
             })
     }
@@ -90,7 +93,20 @@ class App extends React.Component {
         this.db.bulkDocs([data])
             .then( result => {
                 this.fetchData()
-            }).catch( error => {
+            })
+            .catch( error => {
+                console.log(error)
+            })
+    }
+
+    deleteBook(row) {
+        row._rev = row._original._rev
+        
+        this.db.remove(row)
+            .then( result => {
+                this.fetchData()
+            })
+            .catch( error => {
                 console.log(error)
             })
     }
@@ -116,7 +132,8 @@ class App extends React.Component {
             accessor: "actions",
             Cell: row => (
                 <div>
-                    <button onClick={() => this.editBook(row.row)}>Edytuj</button>    
+                    <button onClick={() => this.editBook(row.row)}>Edytuj</button>
+                    <button onClick={() => this.deleteBook(row.row)}>Usuń</button>
                 </div>
             )
         }]
