@@ -8,7 +8,7 @@
     "build-win-portable": "./node_modules/.bin/electron-builder --config ./electron-config/win-portable.json",
     "build-win-32": "./node_modules/.bin/electron-builder --config ./electron-config/win-32.json",
     "build": "webpack --bail --progress --colors",
-    "watch": "webpack --bail --progress --colors --watch"
+    "watch": "webpack --progress --colors --watch"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     "less-loader": "^4.0.5",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "react-table": "^6.7.4",
     "style-loader": "^0.19.0",
     "webpack": "^3.8.1"
   }
