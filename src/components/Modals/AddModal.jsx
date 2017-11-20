@@ -5,17 +5,22 @@ export default class AddModal extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-
-        }
+        this.state = {}
 
         this.handleChange = this.handleChange.bind(this)
+        this.submitForm = this.submitForm.bind(this)
     }
 
     handleChange(e) {
         this.setState({
             [e.target.name]: e.target.value
         })
+    }
+
+    submitForm(e) {
+        e.preventDefault()
+        this.props.onSubmit(this.state)
+        this.props.closeModal()
     }
 
     render() {
@@ -26,7 +31,7 @@ export default class AddModal extends React.Component {
             >
                 <h2>{this.props.contentLabel}</h2>
                     
-                <form onSubmit={() => this.props.onSubmit(this.state)}>
+                <form onSubmit={this.submitForm}>
                     {this.props.values.toChange.map( (value, index) => {
                         return (
                             <label key={index}>
