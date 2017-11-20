@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "./node_modules/.bin/electron .",
-    "build-win-portable": "./node_modules/.bin/electron-builder --config ./electron-config/win-portable.json",
-    "build-win-32": "./node_modules/.bin/electron-builder --config ./electron-config/win-32.json",
+    "build-win-portable": "./node_modules/.bin/electron-builder --config ./electron-configs/win-portable.json",
+    "build-win-32": "./node_modules/.bin/electron-builder --config ./electron-configs/win-32.json",
     "build": "webpack --bail --progress --colors",
     "watch": "webpack --progress --colors --watch"
   },
