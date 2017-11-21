@@ -48,7 +48,7 @@ export default class BooksTable extends React.Component {
                 }}
 
                 style={{
-                    height: "400px" // This will force the table body to overflow and scroll, since there is not enough room
+                    height: "625px"
                 }}
             />
         )
