@@ -11,8 +11,11 @@ export default class BooksTable extends React.Component {
 
     render() {
         const columns = [{
-            Header: "ID",
-            accessor: "_id"
+            Header: "L.p.",
+            accessor: "lp",
+            Cell: row => (
+                row.viewIndex
+            )
         }, {
             Header: "Tytuł",
             accessor: "title"
