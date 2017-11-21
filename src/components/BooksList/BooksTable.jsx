@@ -47,6 +47,8 @@ export default class BooksTable extends React.Component {
                     return row[id] !== undefined ? String(row[id]).toUpperCase().includes(filter.value.toUpperCase()) : true
                 }}
 
+                className="-striped -highlight"
+
                 style={{
                     height: "625px"
                 }}
