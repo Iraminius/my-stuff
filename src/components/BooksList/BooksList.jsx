@@ -62,7 +62,7 @@ export default class BooksList extends React.Component {
         this.setState({
             editModalOpen: true,
             neededForEdit: {
-                _id: row._id,
+                _id: row._original._id,
                 _rev: row._original._rev,
                 title: row.title,
                 author: row.author
@@ -71,6 +71,7 @@ export default class BooksList extends React.Component {
     }
 
     deleteBook(row) {
+        row._id = row._original._id
         row._rev = row._original._rev
         
         this.db.remove(row)

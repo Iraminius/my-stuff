@@ -34,7 +34,6 @@
     "html-webpack-plugin": "^2.30.1",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
-    "pouchdb": "^6.3.4",
     "pouchdb-browser": "^6.3.4",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
