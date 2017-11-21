@@ -2,6 +2,7 @@ const webpack = require("webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 module.exports = {
+    target: "electron",
     entry: "./src/index.jsx",
     output: {
         path: __dirname + "/bundle",
