@@ -1,5 +1,5 @@
 import React from "react"
-import PouchDB from "pouchdb"
+import PouchDB from "pouchdb-browser"
 import AddModal from "../Modals/AddModal"
 import EditModal from "../Modals/EditModal"
 import BooksTable from "./BooksTable"

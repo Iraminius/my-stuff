@@ -1,5 +1,6 @@
 import React from "react"
 import ReactTable from "react-table"
+import ButtonConfirm from "../Buttons/ButtonConfirm"
 
 export default class BooksTable extends React.Component {
     constructor(props) {
@@ -30,7 +31,7 @@ export default class BooksTable extends React.Component {
             Cell: row => (
                 <div>
                     <button onClick={() => this.props.editBook(row.row)}>Edytuj</button>
-                    <button onClick={() => this.props.deleteBook(row.row)}>Usuń</button>
+                    <ButtonConfirm message={`Czy na pewno chcesz usunąć książkę "${row.row.title}"`} onClick={() => this.props.deleteBook(row.row)}>Usuń</ButtonConfirm>
                 </div>
             )
         }]
@@ -39,11 +40,15 @@ export default class BooksTable extends React.Component {
             <ReactTable
                 data={this.props.data}
                 columns={columns}
-                showPaginationBottom={true}
+
                 filterable={true}
                 defaultFilterMethod={(filter, row, column) => {
                     const id = filter.pivotId || filter.id
                     return row[id] !== undefined ? String(row[id]).toUpperCase().includes(filter.value.toUpperCase()) : true
+                }}
+
+                style={{
+                    height: "400px" // This will force the table body to overflow and scroll, since there is not enough room
                 }}
             />
         )
