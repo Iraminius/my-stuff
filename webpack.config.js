@@ -46,6 +46,16 @@ module.exports = {
                     name: "./res/images/[name].[ext]"
                 }
             }
+        }, { 
+            test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+            use: {
+                loader: "url-loader?limit=10000&mimetype=application/font-woff"
+            }
+        }, {
+            test: /\.(ttf|eot)$/,
+            use: {
+                loader: "file-loader"
+            }
         }]
     },
     plugins: [

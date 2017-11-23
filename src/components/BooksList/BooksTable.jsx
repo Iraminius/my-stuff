@@ -1,6 +1,7 @@
 import React from "react"
 import ReactTable from "react-table"
 import ButtonConfirm from "../Buttons/ButtonConfirm"
+import StarsRating from "../Misc/StarsRating"
 
 export default class BooksTable extends React.Component {
     constructor(props) {
@@ -24,13 +25,18 @@ export default class BooksTable extends React.Component {
             accessor: "author"
         }, {
             Header: "Ocena",
-            accessor: "rating"
+            accessor: "rating",
+            Cell: row => (
+                <StarsRating/>
+            )
         }, {
             Header: "Opis",
             accessor: "description"
         }, {
             Header: "Akcje",
             accessor: "actions",
+            sortable: false,
+            filterable: false,
             Cell: row => (
                 <div>
                     <button onClick={() => this.props.editBook(row.row)}>Edytuj</button>
