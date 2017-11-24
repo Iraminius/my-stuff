@@ -7,48 +7,49 @@ export default class BooksTable extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {}
+        this.state = {
+            columns: [{
+                Header: "L.p.",
+                accessor: "lp",
+                minWidth: 50,
+                Cell: row => (
+                    row.index + 1
+                )
+            }, {
+                Header: "Tytuł",
+                accessor: "title"
+            }, {
+                Header: "Autor",
+                accessor: "author"
+            }, {
+                Header: "Ocena",
+                accessor: "rating",
+                minWidth: 150,
+                Cell: row => (
+                    <div>
+                        <StarsRating data={row.row} onSubmit={this.props.submitEdit}/>
+                    </div>
+                )
+            }, {
+                Header: "Akcje",
+                accessor: "actions",
+                sortable: false,
+                filterable: false,
+                Cell: row => (
+                    <div>
+                        <button onClick={() => this.props.editBook(row.row)}>Edytuj</button>
+                        <ButtonConfirm message={`Czy na pewno chcesz usunąć książkę "${row.row.title}"`} onClick={() => this.props.deleteBook(row.row)}>Usuń</ButtonConfirm>
+                    </div>
+                )
+            }]
+        }
     }
 
     render() {
-        const columns = [{
-            Header: "L.p.",
-            accessor: "lp",
-            Cell: row => (
-                row.viewIndex
-            )
-        }, {
-            Header: "Tytuł",
-            accessor: "title"
-        }, {
-            Header: "Autor",
-            accessor: "author"
-        }, {
-            Header: "Ocena",
-            accessor: "rating",
-            Cell: row => (
-                <StarsRating/>
-            )
-        }, {
-            Header: "Opis",
-            accessor: "description"
-        }, {
-            Header: "Akcje",
-            accessor: "actions",
-            sortable: false,
-            filterable: false,
-            Cell: row => (
-                <div>
-                    <button onClick={() => this.props.editBook(row.row)}>Edytuj</button>
-                    <ButtonConfirm message={`Czy na pewno chcesz usunąć książkę "${row.row.title}"`} onClick={() => this.props.deleteBook(row.row)}>Usuń</ButtonConfirm>
-                </div>
-            )
-        }]
-
         return (
             <ReactTable
                 data={this.props.data}
-                columns={columns}
+                columns={this.state.columns}
 
                 filterable={true}
                 defaultFilterMethod={(filter, row, column) => {

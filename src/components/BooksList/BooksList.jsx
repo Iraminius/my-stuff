@@ -26,6 +26,7 @@ export default class BooksList extends React.Component {
         this.submitAddModal = this.submitAddModal.bind(this)
         this.editBook = this.editBook.bind(this)
         this.deleteBook = this.deleteBook.bind(this)
+        this.submitEdit = this.submitEdit.bind(this)
 
         this.warningPrompt = this.warningPrompt.bind(this)
     }
@@ -67,6 +68,8 @@ export default class BooksList extends React.Component {
     }
 
     submitAddModal(data) {
+        data.rating = 0
+
         let exists = false
         this.state.data.forEach( document => {
             if(document.title === data.title) {
@@ -80,7 +83,19 @@ export default class BooksList extends React.Component {
             this.submitModal(data)
         }
     }
+
     submitModal(data) {
+        this.db.bulkDocs([data])
+            .then( result => {
+                this.fetchData()
+            })
+            .catch( error => {
+                console.log(error)
+            })
+    }
+
+    submitEdit(data) {
+        console.log(data)
         this.db.bulkDocs([data])
             .then( result => {
                 this.fetchData()
@@ -97,7 +112,8 @@ export default class BooksList extends React.Component {
                 _id: row._original._id,
                 _rev: row._original._rev,
                 title: row.title,
-                author: row.author
+                author: row.author,
+                rating: row.rating
             }
         })
     }
@@ -137,7 +153,7 @@ export default class BooksList extends React.Component {
                 <EditModal
                     isOpen={this.state.editModalOpen}
                     contentLabel="Edytuj książkę"
-                    onSubmit={this.submitModal}
+                    onSubmit={this.submitEdit}
                     closeModal={() => {this.toggleModal("editModalOpen")}}
                     values={{
                         existing: this.state.neededForEdit,
@@ -157,6 +173,7 @@ export default class BooksList extends React.Component {
                     data={this.state.data}
                     editBook={this.editBook}
                     deleteBook={this.deleteBook}
+                    submitEdit={this.submitEdit}
                 />
             </div>
         )
