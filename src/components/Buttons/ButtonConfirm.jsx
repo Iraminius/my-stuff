@@ -24,7 +24,7 @@ export default class ButtonConfirm extends React.Component {
 
     render() {
         return (
-            <button onClick={this.handleChoose}>{this.props.children}</button>
+            <button className={this.props.className} onClick={this.handleChoose}>{this.props.children}</button>
         )
     }
 }
