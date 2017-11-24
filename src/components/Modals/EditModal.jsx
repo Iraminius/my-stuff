@@ -10,6 +10,7 @@ export default class EditModal extends React.Component {
         this.handleChange = this.handleChange.bind(this)
         this.afterModalOpen = this.afterModalOpen.bind(this)
         this.submitForm = this.submitForm.bind(this)
+        this.selectWholeText = this.selectWholeText.bind(this)
     }
 
     afterModalOpen() {
@@ -36,6 +37,10 @@ export default class EditModal extends React.Component {
         this.props.closeModal()
     }
 
+    selectWholeText(e) {
+        e.target.setSelectionRange(0, e.target.value.length)
+    }
+
     render() {
         return (
             <Modal
@@ -49,7 +54,7 @@ export default class EditModal extends React.Component {
                         return (
                             <label key={index}>
                                 {value.header}
-                                <input name={value.accessor} type="text" onChange={this.handleChange} value={this.state[value.accessor]}/>
+                                <input onClick={this.selectWholeText} name={value.accessor} type="text" onChange={this.handleChange} value={this.state[value.accessor]}/>
                             </label>
                         )
                     })}

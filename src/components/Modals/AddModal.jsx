@@ -9,6 +9,7 @@ export default class AddModal extends React.Component {
 
         this.handleChange = this.handleChange.bind(this)
         this.submitForm = this.submitForm.bind(this)
+        this.selectWholeText = this.selectWholeText.bind(this)
     }
 
     handleChange(e) {
@@ -21,6 +22,10 @@ export default class AddModal extends React.Component {
         e.preventDefault()
         this.props.onSubmit(this.state)
         this.props.closeModal()
+    }
+
+    selectWholeText(e) {
+        e.target.setSelectionRange(0, e.target.value.length)
     }
 
     render() {
@@ -36,7 +41,7 @@ export default class AddModal extends React.Component {
                         return (
                             <label key={index}>
                                 {value.header}
-                                <input name={value.accessor} type="text" onChange={this.handleChange} value={this.state[value.accessor]}/>
+                                <input name={value.accessor} type="text" onClick={this.selectWholeText} onChange={this.handleChange} value={this.state[value.accessor]}/>
                             </label>
                         )
                     })}
