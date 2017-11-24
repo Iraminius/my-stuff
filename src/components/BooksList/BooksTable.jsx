@@ -3,6 +3,8 @@ import ReactTable from "react-table"
 import ButtonConfirm from "../Buttons/ButtonConfirm"
 import StarsRating from "../Misc/StarsRating"
 
+import "./booksTable.less"
+
 export default class BooksTable extends React.Component {
     constructor(props) {
         super(props)
@@ -13,18 +15,20 @@ export default class BooksTable extends React.Component {
                 accessor: "lp",
                 minWidth: 50,
                 Cell: row => (
-                    row.index + 1
+                    <p className="rt-id">{row.index + 1}</p>
                 )
             }, {
                 Header: "Tytuł",
-                accessor: "title"
+                accessor: "title",
+                minWidth: 150
             }, {
                 Header: "Autor",
-                accessor: "author"
+                accessor: "author",
+                minWidth: 120
             }, {
                 Header: "Ocena",
                 accessor: "rating",
-                minWidth: 150,
+                minWidth: 120,
                 Cell: row => (
                     <div>
                         <StarsRating data={row.row} onSubmit={this.props.submitEdit}/>
@@ -33,12 +37,13 @@ export default class BooksTable extends React.Component {
             }, {
                 Header: "Akcje",
                 accessor: "actions",
+                minWidth: 60,
                 sortable: false,
                 filterable: false,
                 Cell: row => (
                     <div>
-                        <button onClick={() => this.props.editBook(row.row)}>Edytuj</button>
-                        <ButtonConfirm message={`Czy na pewno chcesz usunąć książkę "${row.row.title}"`} onClick={() => this.props.deleteBook(row.row)}>Usuń</ButtonConfirm>
+                        <button className="my-stuff-inner-button" onClick={() => this.props.editBook(row.row)}>Edytuj</button>
+                        <ButtonConfirm className="my-stuff-inner-button" message={`Czy na pewno chcesz usunąć książkę "${row.row.title}"`} onClick={() => this.props.deleteBook(row.row)}>Usuń</ButtonConfirm>
                     </div>
                 )
             }]
@@ -51,6 +56,8 @@ export default class BooksTable extends React.Component {
                 data={this.props.data}
                 columns={this.state.columns}
 
+                defaultPageSize={10}
+
                 filterable={true}
                 defaultFilterMethod={(filter, row, column) => {
                     const id = filter.pivotId || filter.id
@@ -58,10 +65,6 @@ export default class BooksTable extends React.Component {
                 }}
 
                 className="-striped -highlight"
-
-                style={{
-                    height: "625px"
-                }}
             />
         )
     }

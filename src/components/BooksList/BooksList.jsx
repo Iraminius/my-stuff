@@ -6,6 +6,8 @@ import BooksTable from "./BooksTable"
 import ButtonConfirm from "../Buttons/ButtonConfirm"
 import { remote } from "electron"
 
+import "./booksList.less"
+
 export default class BooksList extends React.Component {
     constructor(props) {
         super(props)
@@ -133,7 +135,7 @@ export default class BooksList extends React.Component {
 
     render() {
         return (
-            <div>
+            <main>
                 <AddModal
                     isOpen={this.state.addModalOpen}
                     contentLabel="Dodaj książkę"
@@ -167,7 +169,9 @@ export default class BooksList extends React.Component {
                     }}
                 />
 
-                <button onClick={() => {this.toggleModal("addModalOpen")}}>Dodaj książkę</button>
+                <button className="my-stuff-outer-button" onClick={() => {this.toggleModal("addModalOpen")}}>
+                    <i class="fa fa-plus" aria-hidden="true"></i> Dodaj książkę
+                </button>
 
                 <BooksTable
                     data={this.state.data}
@@ -175,7 +179,7 @@ export default class BooksList extends React.Component {
                     deleteBook={this.deleteBook}
                     submitEdit={this.submitEdit}
                 />
-            </div>
+            </main>
         )
     }
 }
