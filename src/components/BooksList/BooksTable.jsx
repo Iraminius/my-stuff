@@ -29,6 +29,9 @@ export default class BooksTable extends React.Component {
                 Header: "Ocena",
                 accessor: "rating",
                 minWidth: 120,
+                filterMethod: (filter, row) => {
+                    return row[filter.id] == filter.value
+                },
                 Cell: row => (
                     <div>
                         <StarsRating data={row.row} onSubmit={this.props.submitEdit}/>
@@ -57,12 +60,21 @@ export default class BooksTable extends React.Component {
                 columns={this.state.columns}
 
                 defaultPageSize={10}
+                pageSizeOptions={[5, 10, 20, 25, 50, 100, 1000]}
 
                 filterable={true}
                 defaultFilterMethod={(filter, row, column) => {
                     const id = filter.pivotId || filter.id
                     return row[id] !== undefined ? String(row[id]).toUpperCase().includes(filter.value.toUpperCase()) : true
                 }}
+
+                previousText="Poprzednia strona"
+                nextText="Następna strona"
+                loadingText="Ładowanie"
+                noDataText="Brak książek"
+                pageText="Strona"
+                ofText="z"
+                rowsText="rzędów"
 
                 className="-striped -highlight"
             />
