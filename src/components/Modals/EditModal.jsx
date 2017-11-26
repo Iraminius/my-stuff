@@ -46,14 +46,19 @@ export default class EditModal extends React.Component {
             <Modal
                 isOpen={this.props.isOpen}
                 onAfterOpen={this.afterModalOpen}
-                style={{content: { 
-                    backgroundColor: "#ececec",
-                    width: "30vw",
-                    textAlign: "center",
-                    left: "35vw",
-                    height: "50vh",
-                    border: "0.1em solid #222222"
-                }}}
+                style={{
+                    overlay: {
+                        zIndex: "2"
+                    },
+                    content: { 
+                        backgroundColor: "#ececec",
+                        width: "30vw",
+                        textAlign: "center",
+                        left: "35vw",
+                        height: "50vh",
+                        border: "0.1em solid #222222"
+                    }
+                }}
             >
                 <h2>{this.props.contentLabel}</h2>
                     
