@@ -12,7 +12,7 @@ export default class BooksList extends React.Component {
     constructor(props) {
         super(props)
 
-        this.db = new PouchDB("books")
+        this.db = new PouchDB("my-stuff-books")
 
         this.state = {
             addModalOpen: false,
