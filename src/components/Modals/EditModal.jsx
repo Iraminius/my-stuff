@@ -46,23 +46,33 @@ export default class EditModal extends React.Component {
             <Modal
                 isOpen={this.props.isOpen}
                 onAfterOpen={this.afterModalOpen}
+                style={{content: { 
+                    backgroundColor: "#ececec",
+                    width: "30vw",
+                    textAlign: "center",
+                    left: "35vw",
+                    height: "50vh",
+                    border: "0.1em solid #222222"
+                }}}
             >
                 <h2>{this.props.contentLabel}</h2>
                     
                 <form onSubmit={this.submitForm}>
                     {this.props.values.toChange.map( (value, index) => {
                         return (
-                            <label key={index}>
-                                {value.header}
-                                <input onClick={this.selectWholeText} name={value.accessor} type="text" onChange={this.handleChange} value={this.state[value.accessor]}/>
-                            </label>
+                            <div key={index}>
+                                <label key={index}>
+                                    <h3 style={{display: "inline-block", marginRight: "0.5em"}}>{value.header}</h3>
+                                    <input onClick={this.selectWholeText} name={value.accessor} type="text" onChange={this.handleChange} value={this.state[value.accessor]}/>
+                                </label>
+                            </div>
                         )
                     })}
 
-                    <input type="submit" value="Edytuj"/>
+                    <br />
+                    <input type="submit" value="Edytuj" className="my-stuff-inner-button"/>
+                    <button onClick={this.props.closeModal} className="my-stuff-inner-button">Anuluj</button>
                 </form>
-
-                <button onClick={this.props.closeModal}>Anuluj</button>
             </Modal>
         )
     }

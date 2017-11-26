@@ -5,7 +5,11 @@ const url = require("url")
 let win
 
 function createWindow () {
-    win = new BrowserWindow({width: 1280, height: 720})
+    win = new BrowserWindow({
+        width: 1280, 
+        height: 720,
+        title: "Lista książek"
+    })
 
     win.loadURL(url.format({
         pathname: path.join(__dirname, "./bundle/index.html"),

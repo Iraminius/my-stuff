@@ -7,11 +7,24 @@ export default class StarsRating extends React.Component {
         super(props)
 
         this.state = {
+            update: false,
             rating: this.props.data.rating
         }
 
         this.submit = this.submit.bind(this)
         this.handleRating = this.handleRating.bind(this)
+    }
+
+    componentDidUpdate() {
+        if(this.state.update) {
+            this.handleRating(this.props.data.rating)
+        }
+    }
+
+    componentWillReceiveProps() {
+        this.setState({
+            update: true
+        })
     }
 
     submit() {
@@ -28,7 +41,8 @@ export default class StarsRating extends React.Component {
 
     handleRating(value) {
         this.setState({
-            rating: value
+            rating: value,
+            update: false
         })
     }
 

@@ -170,7 +170,7 @@ export default class BooksList extends React.Component {
                 />
 
                 <button className="my-stuff-outer-button" onClick={() => {this.toggleModal("addModalOpen")}}>
-                    <i class="fa fa-plus" aria-hidden="true"></i> Dodaj książkę
+                    <i className="fa fa-plus" aria-hidden="true"></i> Dodaj książkę
                 </button>
 
                 <BooksTable

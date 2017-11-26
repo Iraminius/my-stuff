@@ -29,6 +29,9 @@ export default class BooksTable extends React.Component {
                 Header: "Ocena",
                 accessor: "rating",
                 minWidth: 120,
+                filterMethod: (filter, row) => {
+                    return row[filter.id] == filter.value
+                },
                 Cell: row => (
                     <div>
                         <StarsRating data={row.row} onSubmit={this.props.submitEdit}/>
