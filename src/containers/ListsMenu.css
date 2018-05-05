@@ -1,0 +1,12 @@
+.lists-container {
+    width: auto !important;
+    margin: 30px 30px auto 30px !important;
+}
+
+.list-paper {
+    margin-bottom: 15px;
+}
+
+.list-subheader {
+    background-color: rgba(0, 0, 0, 0.15) !important;
+}
