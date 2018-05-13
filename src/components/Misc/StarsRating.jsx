@@ -16,7 +16,7 @@ export default class StarsRating extends React.Component {
     }
 
     componentDidUpdate() {
-        if(this.state.update) {
+        if (this.state.update) {
             this.handleRating(this.props.data.rating)
         }
     }
@@ -48,19 +48,31 @@ export default class StarsRating extends React.Component {
 
     render() {
         return (
-            <div onMouseLeave={() => this.handleRating(this.props.data.rating)}>
-                {Array.apply(null, Array(this.state.rating)).map( (element, index) => {
+            <div onMouseLeave={() => {this.handleRating(this.props.data.rating)}}>
+                {Array.apply(null, Array(this.state.rating)).map((element, index) => {
                     return (
-                        <span key={index} className="fa-stack fa" onMouseEnter={() => this.handleRating(index + 1)} onClick={this.submit}>
-                            <i className="fa fa-star fa-stack-1x"></i>
-                            <i className="fa fa-star-o fa-stack-1x"></i>
+                        <span
+                            key={index}
+                            className="fa-stack fa"
+                            onMouseEnter={() => {
+                                this.handleRating(index + 1)
+                            }}
+                            onClick={this.submit}
+                        >
+                            <i className="fa fa-book fa-stack-1x book"></i>
                         </span>
                     )
                 })}
-                {Array.apply(null, Array(10 - (this.state.rating))).map( (element, index) => {
+                {Array.apply(null, Array(10 - (this.state.rating))).map((element, index) => {
                     return (
-                        <span key={index} className="fa-stack fa" onMouseEnter={() => this.handleRating(index + (this.state.rating) + 1)}>
-                            <i className="fa fa-star-o fa-stack-1x"></i>
+                        <span
+                            key={index}
+                            className="fa-stack fa"
+                            onMouseEnter={() => {
+                                this.handleRating(index + (this.state.rating) + 1)
+                            }}
+                        >
+                            <i className="fa fa-book fa-stack-1x book-o"></i>
                         </span>
                     )
                 })}

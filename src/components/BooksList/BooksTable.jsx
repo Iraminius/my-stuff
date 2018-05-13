@@ -14,8 +14,10 @@ export default class BooksTable extends React.Component {
                 Header: "L.p.",
                 accessor: "lp",
                 minWidth: 50,
+                sortable: false,
+                filterable: false,
                 Cell: row => (
-                    <p className="rt-id">{row.index + 1}</p>
+                    <p className="rt-id">{(row.page * row.pageSize) + row.viewIndex + 1}</p>
                 )
             }, {
                 Header: "Tytuł",
@@ -34,7 +36,7 @@ export default class BooksTable extends React.Component {
                 },
                 Cell: row => (
                     <div>
-                        <StarsRating data={row.row} onSubmit={this.props.submitEdit}/>
+                        <StarsRating data={row.row} onSubmit={this.props.submitEdit} />
                     </div>
                 )
             }, {
